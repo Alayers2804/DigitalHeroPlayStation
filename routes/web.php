@@ -33,4 +33,6 @@ Route::middleware('auth')->group(function () {
     Route::post('/midtrans/callback', [BookingController::class, 'midtransCallback']);
 });
 
+Route::post('/bookings/{id}/pay', [BookingController::class, 'pay'])->name('bookings.pay');
+
 require __DIR__.'/auth.php';

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Midtrans\Config;
 use Midtrans\Snap;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class BookingController extends Controller
 {
@@ -52,13 +53,19 @@ class BookingController extends Controller
     public function pay(Request $request, $id)
     {
         $booking = Booking::findOrFail($id);
-
+    
+        // Ensure transaction_id exists
+        if (!$booking->transaction_id) {
+            $booking->transaction_id = 'TRX-' . strtoupper(Str::random(10));
+            $booking->save();
+        }
+    
         // Configure Midtrans
         Config::$serverKey = env('MIDTRANS_SERVER_KEY');
-        Config::$isProduction = false; // Change to `true` for production
+        Config::$isProduction = false;
         Config::$isSanitized = true;
         Config::$is3ds = true;
-
+    
         // Payment details
         $params = [
             'transaction_details' => [
@@ -70,13 +77,12 @@ class BookingController extends Controller
                 'email' => Auth::user()->email,
             ]
         ];
-
+    
         // Generate Snap Token
         $snapToken = Snap::getSnapToken($params);
-
+    
         return view('bookings.payment', compact('booking', 'snapToken'));
     }
-
     public function midtransCallback(Request $request)
     {
         $serverKey = env('MIDTRANS_SERVER_KEY');
