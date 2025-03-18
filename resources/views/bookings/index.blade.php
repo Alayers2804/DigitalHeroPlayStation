@@ -4,6 +4,19 @@
 <div class="max-w-5xl mx-auto p-6 bg-gray-900 text-white rounded-lg shadow-lg">
     <h2 class="text-3xl font-bold mb-6 text-center">📅 Your Bookings</h2>
 
+    {{-- Display success or error messages --}}
+    @if(session('error'))
+        <div class="bg-red-600 text-white p-3 mb-4 rounded-lg text-center">
+            {{ session('error') }}
+        </div>
+    @endif
+
+    @if(session('success'))
+        <div class="bg-green-600 text-white p-3 mb-4 rounded-lg text-center">
+            {{ session('success') }}
+        </div>
+    @endif
+
     <div class="flex justify-between items-center mb-4">
         <p class="text-gray-400">Manage your bookings easily.</p>
         <a href="{{ route('bookings.create') }}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
