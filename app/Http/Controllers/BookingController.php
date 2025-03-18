@@ -14,7 +14,7 @@ class BookingController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth'); // Ensure users are logged in
+        $this->middleware('auth')->except(['midtransCallback']);
     }
 
     public function index()
