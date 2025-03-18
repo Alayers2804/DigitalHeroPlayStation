@@ -1,17 +1,24 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+@extends('layouts.app')
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    {{ __("You're logged in!") }}
-                </div>
-            </div>
+@section('content')
+    <div class="container mx-auto mt-10 text-center">
+        <h2 class="text-4xl font-bold">Your Booking Status</h2>
+        <p class="mt-2 text-gray-300">Here is the current status of your bookings</p>
+
+        <!-- Tampilkan daftar pemesanan pengguna -->
+        <div class="mt-6 bg-gray-800 p-6 rounded-lg shadow-lg">
+            @if (!empty($bookings) && is_iterable($bookings))
+                <ul class="space-y-3">
+                    @foreach ($bookings as $booking)
+                        <li class="bg-gray-700 p-4 rounded-lg flex justify-between">
+                            <span>{{ $booking->service_name }} - {{ $booking->date }}</span>
+                            <strong>{{ $booking->status }}</strong>
+                        </li>
+                    @endforeach
+                </ul>
+            @else
+                <p class="text-gray-300 mt-4">You have no bookings yet.</p>
+            @endif
         </div>
     </div>
-</x-app-layout>
+@endsection

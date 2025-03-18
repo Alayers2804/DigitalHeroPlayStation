@@ -19,9 +19,10 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/dashboard', [BookingController::class, 'dashboard'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -29,10 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create');
-    Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
-    Route::post('/midtrans/callback', [BookingController::class, 'midtransCallback']);
+    Route::post('/bookings', action: [BookingController::class, 'store'])->name('bookings.store'); 
 });
 
+Route::post('/midtrans/callback', [BookingController::class, 'midtransCallback']);
 Route::post('/bookings/{id}/pay', [BookingController::class, 'pay'])->name('bookings.pay');
 
 require __DIR__.'/auth.php';

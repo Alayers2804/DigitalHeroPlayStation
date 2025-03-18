@@ -21,19 +21,21 @@
     <!-- Navigation Bar -->
     <nav class="bg-gray-800 p-4 shadow-lg">
         <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-xl font-bold text-white">DigiPlay</h1>
+            <a href="{{ route('home') }}" class="text-2xl font-bold text-blue-400 hover:text-blue-300 transition">
+                🎮 DigiPlay
+            </a>
         </div>
     </nav>
 
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-900">
+    <!-- Main Content -->
+    <div class="min-h-screen flex flex-col items-center justify-center px-6 py-12">
         <div class="text-center mb-8">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-white" />
-            </a>
+            <h1 class="text-3xl font-extrabold text-white">Welcome to DigiPlay</h1>
+            <p class="text-gray-400 mt-2">Log in to book your gaming session now!</p>
         </div>
 
-        <!-- Login/Register Form -->
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+        <!-- Authentication Box -->
+        <div class="w-full max-w-md bg-gray-800 p-8 rounded-lg shadow-lg">
             {{ $slot }}
         </div>
     </div>
