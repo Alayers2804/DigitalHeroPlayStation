@@ -11,7 +11,7 @@
                 <ul class="space-y-3">
                     @foreach ($bookings as $booking)
                         <li class="bg-gray-700 p-4 rounded-lg flex justify-between">
-                            <span>{{ $booking->service_name }} - {{ $booking->date }}</span>
+                            <span>{{ $booking->service }} - {{ $booking->date }}</span>
                             <strong>{{ $booking->status }}</strong>
                         </li>
                     @endforeach
